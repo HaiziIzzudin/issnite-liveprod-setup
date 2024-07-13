@@ -1,0 +1,767 @@
+{
+  "sceneGroups": [],
+  "macros": [
+    {
+      "name": "Play intro loop when MotionGraphics is visible",
+      "pause": false,
+      "parallel": true,
+      "onChange": true,
+      "skipExecOnStart": false,
+      "stopActionsIfNotDone": false,
+      "group": false,
+      "dockSettings": {
+        "register": false,
+        "hasRunButton": true,
+        "hasPauseButton": true,
+        "hasStatusLabel": false,
+        "highlightIfConditionsTrue": false,
+        "runButtonText": "Run",
+        "pauseButtonText": "Pause",
+        "unpauseButtonText": "Unpause",
+        "conditionsTrueStatusText": "Conditions are true.",
+        "conditionsFalseStatusText": "Conditions are false."
+      },
+      "macroActionConditionSplitterPosition": [
+        {
+          "pos": 141
+        },
+        {
+          "pos": 279
+        }
+      ],
+      "macroElseActionSplitterPosition": [
+        {
+          "pos": 241
+        },
+        {
+          "pos": 0
+        }
+      ],
+      "registerHotkeys": false,
+      "pauseHotkey": [],
+      "unpauseHotkey": [],
+      "togglePauseHotkey": [],
+      "conditions": [
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "scene_visibility",
+          "logic": 0,
+          "durationModifier": {
+            "time_constraint": 0,
+            "seconds": {
+              "value": {
+                "value": 0,
+                "type": 0
+              },
+              "unit": 0,
+              "version": 1
+            }
+          },
+          "sceneSelection": {
+            "type": 0,
+            "name": "Scene"
+          },
+          "sceneItemSelection": {
+            "type": 0,
+            "idxType": 0,
+            "idx": 0,
+            "item": "MAIN - MotionGraphics"
+          },
+          "condition": 0
+        }
+      ],
+      "actions": [
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "scene_visibility",
+          "enabled": true,
+          "sceneSelection": {
+            "type": 0,
+            "name": "MAIN - MotionGraphics"
+          },
+          "sceneItemSelection": {
+            "type": 0,
+            "idxType": 0,
+            "idx": 0,
+            "item": "Intro Mogra"
+          },
+          "action": 0
+        },
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "media",
+          "enabled": true,
+          "action": 3,
+          "selectionType": 0,
+          "duration": {
+            "value": {
+              "value": 0,
+              "type": 0
+            },
+            "unit": 0,
+            "version": 1
+          },
+          "seekPercentage": {
+            "value": 50,
+            "type": 0
+          },
+          "mediaSource": {
+            "type": 0,
+            "name": "Intro Mogra"
+          },
+          "sceneSelection": {
+            "type": 0,
+            "name": ""
+          },
+          "sceneItemSelection": {
+            "type": 0,
+            "idxType": 0,
+            "idx": 0,
+            "item": ""
+          }
+        }
+      ],
+      "elseActions": [],
+      "inputVariables": []
+    },
+    {
+      "name": "switching to loop mogra after media has ended",
+      "pause": false,
+      "parallel": true,
+      "onChange": true,
+      "skipExecOnStart": false,
+      "stopActionsIfNotDone": false,
+      "group": false,
+      "dockSettings": {
+        "register": false,
+        "hasRunButton": true,
+        "hasPauseButton": true,
+        "hasStatusLabel": false,
+        "highlightIfConditionsTrue": false,
+        "runButtonText": "Run",
+        "pauseButtonText": "Pause",
+        "unpauseButtonText": "Unpause",
+        "conditionsTrueStatusText": "Conditions are true.",
+        "conditionsFalseStatusText": "Conditions are false."
+      },
+      "macroActionConditionSplitterPosition": [
+        {
+          "pos": 165
+        },
+        {
+          "pos": 255
+        }
+      ],
+      "macroElseActionSplitterPosition": [
+        {
+          "pos": 217
+        },
+        {
+          "pos": 0
+        }
+      ],
+      "registerHotkeys": false,
+      "pauseHotkey": [],
+      "unpauseHotkey": [],
+      "togglePauseHotkey": [],
+      "conditions": [
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "media",
+          "logic": 0,
+          "durationModifier": {
+            "time_constraint": 0,
+            "seconds": {
+              "value": {
+                "value": 0,
+                "type": 0
+              },
+              "unit": 0,
+              "version": 1
+            }
+          },
+          "source": {
+            "type": 0,
+            "name": "Intro Mogra"
+          },
+          "sceneSelection": {
+            "type": 0,
+            "name": ""
+          },
+          "sourceType": 0,
+          "state": 6,
+          "restriction": 0,
+          "duration": {
+            "value": {
+              "value": 0,
+              "type": 0
+            },
+            "unit": 0,
+            "version": 1
+          },
+          "version": 0
+        }
+      ],
+      "actions": [
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "scene_visibility",
+          "enabled": true,
+          "sceneSelection": {
+            "type": 0,
+            "name": "MAIN - MotionGraphics"
+          },
+          "sceneItemSelection": {
+            "type": 0,
+            "idxType": 0,
+            "idx": 0,
+            "item": "Loop Mogra"
+          },
+          "action": 0
+        },
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "scene_visibility",
+          "enabled": false,
+          "sceneSelection": {
+            "type": 0,
+            "name": "Scene"
+          },
+          "sceneItemSelection": {
+            "type": 0,
+            "idxType": 0,
+            "idx": 0,
+            "item": "Intro Mogra"
+          },
+          "action": 1
+        }
+      ],
+      "elseActions": [],
+      "inputVariables": []
+    },
+    {
+      "name": "If MotionGraphics is hidden (ALWAYS)",
+      "pause": false,
+      "parallel": true,
+      "onChange": false,
+      "skipExecOnStart": false,
+      "stopActionsIfNotDone": false,
+      "group": false,
+      "dockSettings": {
+        "register": false,
+        "hasRunButton": true,
+        "hasPauseButton": true,
+        "hasStatusLabel": false,
+        "highlightIfConditionsTrue": false,
+        "runButtonText": "Run",
+        "pauseButtonText": "Pause",
+        "unpauseButtonText": "Unpause",
+        "conditionsTrueStatusText": "Conditions are true.",
+        "conditionsFalseStatusText": "Conditions are false."
+      },
+      "macroActionConditionSplitterPosition": [
+        {
+          "pos": 117
+        },
+        {
+          "pos": 303
+        }
+      ],
+      "macroElseActionSplitterPosition": [
+        {
+          "pos": 265
+        },
+        {
+          "pos": 0
+        }
+      ],
+      "registerHotkeys": false,
+      "pauseHotkey": [],
+      "unpauseHotkey": [],
+      "togglePauseHotkey": [],
+      "conditions": [
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "scene_visibility",
+          "logic": 0,
+          "durationModifier": {
+            "time_constraint": 0,
+            "seconds": {
+              "value": {
+                "value": 0,
+                "type": 0
+              },
+              "unit": 0,
+              "version": 1
+            }
+          },
+          "sceneSelection": {
+            "type": 0,
+            "name": "Scene"
+          },
+          "sceneItemSelection": {
+            "type": 0,
+            "idxType": 0,
+            "idx": 0,
+            "item": "MAIN - MotionGraphics"
+          },
+          "condition": 1
+        }
+      ],
+      "actions": [
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "scene_visibility",
+          "enabled": true,
+          "sceneSelection": {
+            "type": 0,
+            "name": "MAIN - MotionGraphics"
+          },
+          "sceneItemSelection": {
+            "type": 0,
+            "idxType": 0,
+            "idx": 0,
+            "item": "Loop Mogra"
+          },
+          "action": 1
+        },
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "scene_visibility",
+          "enabled": true,
+          "sceneSelection": {
+            "type": 0,
+            "name": "MAIN - MotionGraphics"
+          },
+          "sceneItemSelection": {
+            "type": 0,
+            "idxType": 0,
+            "idx": 0,
+            "item": "Intro Mogra"
+          },
+          "action": 1
+        }
+      ],
+      "elseActions": [],
+      "inputVariables": []
+    },
+    {
+      "name": "If any tayangan is playing",
+      "pause": false,
+      "parallel": true,
+      "onChange": true,
+      "skipExecOnStart": false,
+      "stopActionsIfNotDone": false,
+      "group": false,
+      "dockSettings": {
+        "register": false,
+        "hasRunButton": true,
+        "hasPauseButton": true,
+        "hasStatusLabel": false,
+        "highlightIfConditionsTrue": false,
+        "runButtonText": "Run",
+        "pauseButtonText": "Pause",
+        "unpauseButtonText": "Unpause",
+        "conditionsTrueStatusText": "Conditions are true.",
+        "conditionsFalseStatusText": "Conditions are false."
+      },
+      "macroActionConditionSplitterPosition": [
+        {
+          "pos": 108
+        },
+        {
+          "pos": 312
+        }
+      ],
+      "macroElseActionSplitterPosition": [
+        {
+          "pos": 137
+        },
+        {
+          "pos": 137
+        }
+      ],
+      "registerHotkeys": false,
+      "pauseHotkey": [],
+      "unpauseHotkey": [],
+      "togglePauseHotkey": [],
+      "conditions": [
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "media",
+          "logic": 0,
+          "durationModifier": {
+            "time_constraint": 0,
+            "seconds": {
+              "value": {
+                "value": 0,
+                "type": 0
+              },
+              "unit": 0,
+              "version": 1
+            }
+          },
+          "source": {
+            "type": 0,
+            "name": "02 - Tayangan Pt 1"
+          },
+          "sceneSelection": {
+            "type": 0,
+            "name": "Scene"
+          },
+          "sourceType": 1,
+          "state": 1,
+          "restriction": 0,
+          "duration": {
+            "value": {
+              "value": 0,
+              "type": 0
+            },
+            "unit": 0,
+            "version": 1
+          },
+          "version": 0
+        }
+      ],
+      "actions": [
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "audio",
+          "enabled": true,
+          "duration": {
+            "value": {
+              "value": 0,
+              "type": 0
+            },
+            "unit": 0,
+            "version": 1
+          },
+          "audioSource": {
+            "type": 0,
+            "name": "Mic/Aux"
+          },
+          "action": 0,
+          "monitor": 0,
+          "syncOffset": {
+            "value": 0,
+            "type": 0
+          },
+          "balance": {
+            "value": 0.5,
+            "type": 0
+          },
+          "track": {
+            "value": 1,
+            "type": 0
+          },
+          "volume": {
+            "value": 0,
+            "type": 0
+          },
+          "rate": {
+            "value": 100,
+            "type": 0
+          },
+          "fade": false,
+          "fadeType": 0,
+          "wait": false,
+          "abortActiveFade": false,
+          "useDb": false,
+          "volumeDB": {
+            "value": 0,
+            "type": 0
+          },
+          "version": 3
+        }
+      ],
+      "elseActions": [
+        {
+          "segmentSettings": {
+            "collapsed": false,
+            "useCustomLabel": false,
+            "customLabel": "My label"
+          },
+          "id": "audio",
+          "enabled": true,
+          "duration": {
+            "value": {
+              "value": 0,
+              "type": 0
+            },
+            "unit": 0,
+            "version": 1
+          },
+          "audioSource": {
+            "type": 0,
+            "name": "Mic/Aux"
+          },
+          "action": 1,
+          "monitor": 0,
+          "syncOffset": {
+            "value": 0,
+            "type": 0
+          },
+          "balance": {
+            "value": 0.5,
+            "type": 0
+          },
+          "track": {
+            "value": 1,
+            "type": 0
+          },
+          "volume": {
+            "value": 0,
+            "type": 0
+          },
+          "rate": {
+            "value": 100,
+            "type": 0
+          },
+          "fade": false,
+          "fadeType": 0,
+          "wait": false,
+          "abortActiveFade": false,
+          "useDb": false,
+          "volumeDB": {
+            "value": 0,
+            "type": 0
+          },
+          "version": 3
+        }
+      ],
+      "inputVariables": []
+    }
+  ],
+  "macroSettings": {
+    "highlightExecuted": false,
+    "highlightConditions": false,
+    "highlightActions": false,
+    "newMacroRegisterHotkey": false
+  },
+  "variables": [],
+  "switches": [],
+  "ignoreWindows": [],
+  "screenRegion": [],
+  "pauseEntries": [],
+  "sceneRoundTrip": [],
+  "sceneTransitions": [],
+  "defaultTransitions": [],
+  "defTransitionDelay": 0,
+  "ignoreIdleWindows": [],
+  "idleTargetType": 0,
+  "idleSceneName": "",
+  "idleTransitionName": "",
+  "idleEnable": false,
+  "idleTime": 60,
+  "executableSwitches": [],
+  "randomSwitches": [],
+  "fileSwitches": [],
+  "readEnabled": false,
+  "readPath": "",
+  "writeEnabled": false,
+  "writePath": "",
+  "mediaSwitches": [],
+  "timeSwitches": [],
+  "audioSwitches": [],
+  "audioFallbackTargetType": 0,
+  "audioFallbackScene": "",
+  "audioFallbackTransition": "",
+  "audioFallbackEnable": false,
+  "audioFallbackDuration": {
+    "value": {
+      "value": 0,
+      "type": 0
+    },
+    "unit": 0,
+    "version": 1
+  },
+  "videoSwitches": [],
+  "ServerEnabled": false,
+  "ServerPort": 55555,
+  "LockToIPv4": false,
+  "ClientEnabled": false,
+  "Address": "",
+  "ClientPort": 55555,
+  "SendSceneChange": true,
+  "SendSceneChangeAll": true,
+  "SendPreview": true,
+  "triggers": [],
+  "interval": 300,
+  "non_matching_scene": "",
+  "switch_if_not_matching": 0,
+  "noMatchDelay": {
+    "value": {
+      "value": 0,
+      "type": 0
+    },
+    "unit": 0,
+    "version": 1
+  },
+  "cooldown": {
+    "value": {
+      "value": 0,
+      "type": 0
+    },
+    "unit": 0,
+    "version": 1
+  },
+  "active": true,
+  "startup_behavior": 0,
+  "autoStartEvent": 0,
+  "logLevel": 0,
+  "showSystemTrayNotifications": false,
+  "disableHints": false,
+  "disableFilterComboboxFilter": false,
+  "warnPluginLoadFailure": true,
+  "hideLegacyTabs": true,
+  "priority0": 10,
+  "priority1": 0,
+  "priority2": 2,
+  "priority3": 8,
+  "priority4": 6,
+  "priority5": 9,
+  "priority6": 7,
+  "priority7": 4,
+  "priority8": 1,
+  "priority9": 5,
+  "priority10": 3,
+  "threadPriority": 3,
+  "transitionOverrideOverride": false,
+  "adjustActiveTransitionType": true,
+  "lastImportPath": "",
+  "startHotkey": [],
+  "stopHotkey": [],
+  "toggleHotkey": [],
+  "upMacroSegmentHotkey": [],
+  "downMacroSegmentHotkey": [],
+  "removeMacroSegmentHotkey": [],
+  "tabWidgetOrder": [
+    {
+      "generalTab": 0
+    },
+    {
+      "macroTab": 1
+    },
+    {
+      "windowTitleTab": 2
+    },
+    {
+      "executableTab": 3
+    },
+    {
+      "screenRegionTab": 4
+    },
+    {
+      "mediaTab": 5
+    },
+    {
+      "fileTab": 6
+    },
+    {
+      "randomTab": 7
+    },
+    {
+      "timeTab": 8
+    },
+    {
+      "idleTab": 9
+    },
+    {
+      "sceneSequenceTab": 10
+    },
+    {
+      "audioTab": 11
+    },
+    {
+      "videoTab": 12
+    },
+    {
+      "networkTab": 13
+    },
+    {
+      "sceneGroupTab": 14
+    },
+    {
+      "transitionsTab": 15
+    },
+    {
+      "pauseTab": 16
+    },
+    {
+      "sceneTriggerTab": 17
+    },
+    {
+      "websocketConnectionTab": 18
+    },
+    {
+      "twitchConnectionTab": 19
+    },
+    {
+      "variableTab": 20
+    },
+    {
+      "actionQueueTab": 21
+    }
+  ],
+  "saveWindowGeo": false,
+  "windowPosX": 526,
+  "windowPosY": 130,
+  "windowWidth": 1000,
+  "windowHeight": 600,
+  "macroListMacroEditSplitterPosition": [
+    {
+      "pos": 149
+    },
+    {
+      "pos": 824
+    }
+  ],
+  "version": "e3ff6f34fcce1a42d6eb65effdb7eb279776fb5e",
+  "websocketConnections": [],
+  "twitchConnections": [],
+  "actionQueues": []
+}
