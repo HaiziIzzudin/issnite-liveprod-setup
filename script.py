@@ -17,32 +17,48 @@ import argparse
 
 scrcpy_path = os.path.expanduser("~") + '\\PortableApps\\scrcpy-win64-v2.4\\scrcpy.exe'
 output_path = 'E:\\'
+buffer = 70    # buffer value in ms
 
 
 devices = {
-  'RedmiN7': { 
-    'serial': "b309ccb2", 
+  # 'RedmiN7': { 
+  #   'serial': "b309ccb2", 
+  #   'mode': "screencap", 
+  #   'dimensions': None, 
+  #   'fps': 30, 
+  #   'audio_playback': 'play',
+  #   'mic_capture': True,
+  # },
+  # 'OppoA79': {
+  #   'serial': "GQCEPFAQGEMZG6N7", 
+  #   'mode': "screencap", 
+  #   'dimensions': None, #A14 does not support --crop
+  #   'fps': 30, 
+  #   'audio_playback': 'muted',
+  #   'mic_capture': True,
+  # },
+  'RN10Pro': {
+    'serial': "b34c3001", 
     'mode': "screencap", 
-    'dimensions': None, 
+    'dimensions': None,
     'fps': 30, 
     'audio_playback': 'play',
+    'mic_capture': False,
   },
-  'OppoA79': {
-    'serial': "GQCEPFAQGEMZG6N7", 
-    'mode': "screencap", 
-    'dimensions': None, #A14 does not support --crop
-    'fps': 30, 
-    'audio_playback': 'muted',
-  }
 }
 
 
 
 device_names = list(devices.keys())
 
+
+
+### SETTINGS FOR ALL DEVICES
 for name in device_names:
   devices[name]['ipaddr'] = None
   devices[name]['bool_conn'] = False
+  devices[name]['savetofile'] = False
+  devices[name]['enable_control'] = True
 
 
 
@@ -61,6 +77,9 @@ try:
       ip_address = devices[name]['ipaddr']
       boolconn = devices[name]['bool_conn']
       audioplayback = devices[name]['audio_playback']
+      miccap = devices[name]['mic_capture'] # return bool
+      enablesave = devices[name]['savetofile'] # return bool
+      enablecontrol = devices[name]['enable_control'] # return bool
       
 
 
@@ -96,27 +115,41 @@ try:
         scrcpyInit = f'{scrcpy_path} --tcpip={ip_address}:5555 --window-borderless -b 6M' 
         # target scrcpy to device serial, wirelessly, borderless window, 8mbps
 
-        scrcpyInit += f' --window-height=1080 --window-title={name} --display-buffer=200'
+        scrcpyInit += f' --window-height=1080 --window-title={name} --display-buffer={buffer}'
         # set window height 1080px, window title name, no audio, 300ms display buffer
 
-        if (mode == 'screencap'):
-          scrcpyInit += f' --no-control --max-fps={fps} --lock-video-orientation=270'
-          # set max fps, lock video orientation to landscape
 
+
+        ### IF ENABLE CONTROL IS TRUE
+        if (enablecontrol == False):
+          scrcpyInit += ' --no-control'
+        
+        
+
+        ### IF...ELSE SCREEN CAPTURE MODE
+
+        if (mode == 'screencap'):
+          scrcpyInit += f' --max-fps={fps} --lock-video-orientation=270'
+          # set max fps, lock video orientation to landscape
           if dimensions != None:
             scrcpyInit += f' --crop={dimensions}'
-
         elif (mode == 'cameracap'):
           scrcpyInit += f' --camera-fps={fps} --video-source=camera --camera-id=0 --camera-size={dimensions}'
           # set max fps, video source camera, front camera, camera size=dimensions
 
 
-        scrcpyInit += f' --audio-source=mic --audio-buffer=200 --video-codec=h265 --audio-codec=aac'
+        ### IF MIC CAPTURE SET TO TRUE
+        if (miccap == True):
+          scrcpyInit += f' --audio-source=mic'
+
+
+        scrcpyInit += f' --audio-buffer={buffer} --video-codec=h265 --audio-codec=aac'
         
         if (audioplayback == 'muted'):
           scrcpyInit += f' --no-audio-playback'
         
-        scrcpyInit += f' -r "{output_path}{name}_{dat}.mkv"'
+        if (enablesave == True):
+          scrcpyInit += f' -r "{output_path}{name}_{dat}.mkv"'
         # -record to filename= ~/videos/devicename/...
 
         print(scrcpyInit)
