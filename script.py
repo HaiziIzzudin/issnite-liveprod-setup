@@ -15,11 +15,15 @@ import argparse
 
 
 
-scrcpy_path = os.path.expanduser("~") + '\\PortableApps\\scrcpy-win64-v2.4\\scrcpy.exe'
+scrcpy_path = os.path.expanduser("~") + '\\PortableApps\\scrcpy-win64-v2.6.1\\scrcpy.exe'
 output_path = 'E:\\'
-buffer = 70    # buffer value in ms
+buffer = 150    # buffer value in ms
 windowWidth = 1920
 codec = "h265"
+# encoderstring = 'OMX.google.h264.encoder'
+bitrate = 16 # MBPS
+
+
 
 
 devices = { #mode: screencap | cameracap | audiomirror
@@ -32,22 +36,22 @@ devices = { #mode: screencap | cameracap | audiomirror
   #   'audio_playback': 'play',
   #   'mic_capture': False,
   # },
-  # 'OppoA79': {
-  #   'serial': "GQCEPFAQGEMZG6N7", 
-  #   'mode': "audiomirror", 
-  #   'dimensions': None, #A14 does not support --crop
-  #   'fps': 30, 
-  #   'audio_playback': 'play',
-  #   'mic_capture': False,
-  # },
-  'RN10Pro': {
-    'serial': "b34c3001", 
-    'mode': "cameracap", 
-    'dimensions': '3840x2160',
-    'fps': 30, 
-    'audio_playback': 'muted',   # play | muted
+  'OppoA79': {
+    'serial': "GQCEPFAQGEMZG6N7", 
+    'mode': "highspeed", 
+    'dimensions': '1280x720', #A14 does not support --crop
+    'fps': 120, 
+    'audio_playback': 'muted',
     'mic_capture': False,
   },
+  # 'RN10Pro': {
+  #   'serial': "b34c3001", 
+  #   'mode': "cameracap",
+  #   'dimensions': '2720x1530',  # 2720x1530 is max resolution scrcpy can capture
+  #   'fps': 30, 
+  #   'audio_playback': 'muted',   # play | muted
+  #   'mic_capture': False,
+  # },
 }
 
 
@@ -116,7 +120,7 @@ try:
           
         dat = datetime.now().strftime('%y%m%d%H%M%S')
 
-        scrcpyInit = f'{scrcpy_path} --tcpip={ip_address}:5555 --window-borderless -b 6M' 
+        scrcpyInit = f'{scrcpy_path} --tcpip={ip_address}:5555 --print-fps --window-borderless -b {bitrate}M' 
         # target scrcpy to device serial, wirelessly, borderless window, 8mbps
 
         scrcpyInit += f' --window-width={windowWidth} --window-title={name} --display-buffer={buffer}'
@@ -140,6 +144,8 @@ try:
         elif (mode == 'cameracap'):
           scrcpyInit += f' --camera-fps={fps} --video-source=camera --camera-id=0 --camera-size={dimensions}'
           # set max fps, video source camera, front camera, camera size=dimensions
+        elif (mode == 'highspeed'):
+          scrcpyInit += f' --camera-fps={fps} --camera-high-speed --video-source=camera --camera-id=0 --camera-size={dimensions}'
         elif (mode == 'audiomirror'):
           scrcpyInit += f' --no-video-playback'
           windowcheck = False
@@ -152,6 +158,7 @@ try:
 
 
         scrcpyInit += f' --audio-buffer={buffer} --video-codec={codec} --audio-codec=aac'
+        # scrcpyInit += f' --audio-buffer={buffer} --video-codec={codec} --video-encoder="{encoderstring}" --audio-codec=aac'
         
         if (audioplayback == 'muted'):
           scrcpyInit += f' --no-audio-playback'
