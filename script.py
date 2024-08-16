@@ -18,31 +18,34 @@ import argparse
 scrcpy_path = os.path.expanduser("~") + '\\PortableApps\\scrcpy-win64-v2.4\\scrcpy.exe'
 output_path = 'E:\\'
 buffer = 70    # buffer value in ms
+windowWidth = 1920
+codec = "h265"
 
 
-devices = {
-  # 'RedmiN7': { 
-  #   'serial': "b309ccb2", 
-  #   'mode': "screencap", 
-  #   'dimensions': None, 
+devices = { #mode: screencap | cameracap | audiomirror
+
+  # 'RA2Plus': { 
+  #   'serial': "GIE655CM9L6X5P7D", 
+  #   'mode': "cameracap", 
+  #   'dimensions': "1920x1080", 
   #   'fps': 30, 
   #   'audio_playback': 'play',
-  #   'mic_capture': True,
+  #   'mic_capture': False,
   # },
   # 'OppoA79': {
   #   'serial': "GQCEPFAQGEMZG6N7", 
-  #   'mode': "screencap", 
+  #   'mode': "audiomirror", 
   #   'dimensions': None, #A14 does not support --crop
   #   'fps': 30, 
-  #   'audio_playback': 'muted',
-  #   'mic_capture': True,
+  #   'audio_playback': 'play',
+  #   'mic_capture': False,
   # },
   'RN10Pro': {
     'serial': "b34c3001", 
-    'mode': "screencap", 
-    'dimensions': None,
+    'mode': "cameracap", 
+    'dimensions': '3840x2160',
     'fps': 30, 
-    'audio_playback': 'play',
+    'audio_playback': 'muted',   # play | muted
     'mic_capture': False,
   },
 }
@@ -55,15 +58,17 @@ device_names = list(devices.keys())
 
 ### SETTINGS FOR ALL DEVICES
 for name in device_names:
-  devices[name]['ipaddr'] = None
-  devices[name]['bool_conn'] = False
-  devices[name]['savetofile'] = False
-  devices[name]['enable_control'] = True
+  devices[name]['ipaddr'] = None # init do not touch
+  devices[name]['bool_conn'] = False # init do not touch
+  devices[name]['savetofile'] = False # TRUE | FALSE
+  devices[name]['enable_control'] = False # TRUE | FALSE
 
 
 
 
 try:
+  
+  windowcheck = True
 
   while True:
 
@@ -81,12 +86,11 @@ try:
       enablesave = devices[name]['savetofile'] # return bool
       enablecontrol = devices[name]['enable_control'] # return bool
       
-
-
       try:
-      
-        find_window(title=name)
-        info(f"Window {name} of ip {ip_address} is active.")
+        
+        if windowcheck == True:
+          find_window(title=name)
+          info(f"Window {name} of ip {ip_address} is active.")
       
       except Exception:
         
@@ -115,7 +119,7 @@ try:
         scrcpyInit = f'{scrcpy_path} --tcpip={ip_address}:5555 --window-borderless -b 6M' 
         # target scrcpy to device serial, wirelessly, borderless window, 8mbps
 
-        scrcpyInit += f' --window-height=1080 --window-title={name} --display-buffer={buffer}'
+        scrcpyInit += f' --window-width={windowWidth} --window-title={name} --display-buffer={buffer}'
         # set window height 1080px, window title name, no audio, 300ms display buffer
 
 
@@ -126,7 +130,7 @@ try:
         
         
 
-        ### IF...ELSE SCREEN CAPTURE MODE
+        ### IF...ELSE MODE
 
         if (mode == 'screencap'):
           scrcpyInit += f' --max-fps={fps} --lock-video-orientation=270'
@@ -136,6 +140,10 @@ try:
         elif (mode == 'cameracap'):
           scrcpyInit += f' --camera-fps={fps} --video-source=camera --camera-id=0 --camera-size={dimensions}'
           # set max fps, video source camera, front camera, camera size=dimensions
+        elif (mode == 'audiomirror'):
+          scrcpyInit += f' --no-video-playback'
+          windowcheck = False
+
 
 
         ### IF MIC CAPTURE SET TO TRUE
@@ -143,7 +151,7 @@ try:
           scrcpyInit += f' --audio-source=mic'
 
 
-        scrcpyInit += f' --audio-buffer={buffer} --video-codec=h265 --audio-codec=aac'
+        scrcpyInit += f' --audio-buffer={buffer} --video-codec={codec} --audio-codec=aac'
         
         if (audioplayback == 'muted'):
           scrcpyInit += f' --no-audio-playback'
