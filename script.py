@@ -2,11 +2,8 @@ from datetime import datetime
 import subprocess
 from time import sleep
 import os
-import re
-from pywinauto import Application
-from pywinauto.findwindows import find_window, WindowNotFoundError
+from pywinauto.findwindows import find_window
 from logging import info
-import argparse
 
 
 
@@ -18,8 +15,6 @@ import argparse
 scrcpy_path = os.path.expanduser("~") + '\\PortableApps\\scrcpy-win64-v2.6.1\\scrcpy.exe'
 output_path = 'E:\\'
 buffer = 150    # buffer value in ms
-windowWidth = 1920
-codec = "h265"
 # encoderstring = 'OMX.google.h264.encoder'
 bitrate = 16 # MBPS
 
@@ -28,22 +23,23 @@ bitrate = 16 # MBPS
 
 devices = { #mode: screencap | cameracap | audiomirror
 
-  # 'RA2Plus': { 
-  #   'serial': "GIE655CM9L6X5P7D", 
-  #   'mode': "cameracap", 
-  #   'dimensions': "1920x1080", 
-  #   'fps': 30, 
-  #   'audio_playback': 'play',
-  #   'mic_capture': False,
-  # },
-  'OppoA79': {
-    'serial': "GQCEPFAQGEMZG6N7", 
-    'mode': "highspeed", 
-    'dimensions': '1280x720', #A14 does not support --crop
-    'fps': 120, 
+  'RA2Plus': { 
+    'serial': "GIE655CM9L6X5P7D", 
+    'mode': "screencap", 
+    'px-width': 1920,  # if screencap, this will applied to window-height
+    'fps': 30, 
     'audio_playback': 'muted',
     'mic_capture': False,
+    'codec': 'h264'
   },
+  # 'OppoA79': {
+  #   'serial': "GQCEPFAQGEMZG6N7", 
+  #   'mode': "highspeed", 
+  #   'dimensions': '1280x720', #A14 does not support --crop
+  #   'fps': 120, 
+  #   'audio_playback': 'muted',
+  #   'mic_capture': False,
+  # },
   # 'RN10Pro': {
   #   'serial': "b34c3001", 
   #   'mode': "cameracap",
@@ -80,13 +76,14 @@ try:
       
       serial = devices[name]['serial']
       mode = devices[name]['mode']
-      dimensions = devices[name]['dimensions']
+      width: int = devices[name]['px-width']
       fps = str(devices[name]['fps'])
+      audioplayback = devices[name]['audio_playback']
+      miccap = devices[name]['mic_capture'] # return bool
+      codec = devices[name]['codec'] # return str = h264 | h265
       
       ip_address = devices[name]['ipaddr']
       boolconn = devices[name]['bool_conn']
-      audioplayback = devices[name]['audio_playback']
-      miccap = devices[name]['mic_capture'] # return bool
       enablesave = devices[name]['savetofile'] # return bool
       enablecontrol = devices[name]['enable_control'] # return bool
       
@@ -123,7 +120,7 @@ try:
         scrcpyInit = f'{scrcpy_path} --tcpip={ip_address}:5555 --print-fps --window-borderless -b {bitrate}M' 
         # target scrcpy to device serial, wirelessly, borderless window, 8mbps
 
-        scrcpyInit += f' --window-width={windowWidth} --window-title={name} --display-buffer={buffer}'
+        scrcpyInit += f' --window-height={int((width/16)*9)} --window-title={name} --display-buffer={buffer}'
         # set window height 1080px, window title name, no audio, 300ms display buffer
 
 
@@ -139,13 +136,13 @@ try:
         if (mode == 'screencap'):
           scrcpyInit += f' --max-fps={fps} --lock-video-orientation=270'
           # set max fps, lock video orientation to landscape
-          if dimensions != None:
-            scrcpyInit += f' --crop={dimensions}'
+          # if width != None:
+          #   scrcpyInit += f' --crop={width}'
         elif (mode == 'cameracap'):
-          scrcpyInit += f' --camera-fps={fps} --video-source=camera --camera-id=0 --camera-size={dimensions}'
-          # set max fps, video source camera, front camera, camera size=dimensions
+          scrcpyInit += f' --camera-fps={fps} --video-source=camera --camera-id=0 --camera-size={width}x{int((width/16)*9)}'
+          # set max fps, video source camera, front camera, camera size=width
         elif (mode == 'highspeed'):
-          scrcpyInit += f' --camera-fps={fps} --camera-high-speed --video-source=camera --camera-id=0 --camera-size={dimensions}'
+          scrcpyInit += f' --camera-fps={fps} --camera-high-speed --video-source=camera --camera-id=0 --camera-size={width}'
         elif (mode == 'audiomirror'):
           scrcpyInit += f' --no-video-playback'
           windowcheck = False
