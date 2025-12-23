@@ -36,25 +36,26 @@ devices = { #mode: screencap | cameracap | audiomirror
   #   'mic_capture': False,
   #   'codec': 'h264'
   # },
-  # 'OppoA79': {
-  #   'serial': "GQCEPFAQGEMZG6N7", 
-  #   'mode': "screencap", 
-  #   'px-width': 1080, #A14 does not support --crop
-  #   'fps': 30, 
-  #   'audio_playback': 'play',
-  #   'mic_capture': False,
-  #   'codec': 'h265'
-  # },
-  'RN10Pro': {
-    'serial': "b34c3001", 
-    'mode': "cameracap",
-    'px-width': 1280,  # refereace to landscape measurements, max=2720x1530
-    'orientation': 'portrait', # 'portrait' | 'landscape'
+  'OppoA79': {
+    'serial': "GQCEPFAQGEMZG6N7", 
+    'mode': "cameracap", 
+    'px-width': 1080, #A14 does not support --crop
+    'orientation': 'landscape', # 'portrait' | 'landscape'
     'fps': 30, 
-    'audio_loudspeaker': False,   # True | False
-    'mic_capture': False,
-    'codec': 'h265' # 'h265' | 'h264'
+    'audio_loudspeaker': 'play',
+    'mic_capture': True,
+    'codec': 'h265'
   },
+  # 'RN10Pro': {
+  #   'serial': "b34c3001", 
+  #   'mode': "cameracap",
+  #   'px-width': 1280,  # refereace to landscape measurements, max=2720x1530
+  #   'orientation': 'landscape', # 'portrait' | 'landscape'
+  #   'fps': 30, 
+  #   'audio_loudspeaker': False,   # True | False
+  #   'mic_capture': True,
+  #   'codec': 'h265' # 'h265' | 'h264'
+  # },
 }
 
 
@@ -126,7 +127,7 @@ try:
 
         # image orientation logic
         if orientation == 'portrait':    scrcpyInit += f' --window-height={width} --orientation=90'
-        elif orientation == 'landscape': scrcpyInit += f' --window-width={width} --orientation=270'
+        elif orientation == 'landscape': scrcpyInit += f' --window-width={width}'
         
         # no logic for window title, display buffer, audio buffer, video codec
         scrcpyInit += f' --window-title={name} --display-buffer={buffer} --audio-buffer={buffer} --video-codec={codec}'  # 
@@ -135,7 +136,7 @@ try:
         if (mode == 'screencap'):   scrcpyInit += f' --max-fps={fps}'
         elif (mode == 'cameracap') or (mode == 'highspeed'): 
           if mode == 'highspeed':  scrcpyInit += f' --camera-high-speed'
-          scrcpyInit += f' --camera-fps={fps} --video-source=camera --camera-id=0 --camera-size={width}x{int((width/16)*9)}'
+          scrcpyInit += f' --camera-fps={fps} --video-source=camera --camera-id=0 --camera-size=1920x1080'
 
         # logic for enable control, mic capture, audio playback, enable save
         if (enablecontrol == False): scrcpyInit += ' --no-control'
